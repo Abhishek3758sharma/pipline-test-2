@@ -35,4 +35,4 @@ jobs:
 
       - name: Terraform Plan
         working-directory: root
-        run: terraform p
+        run: terraform plan
