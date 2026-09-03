@@ -1,0 +1,38 @@
+name: Terraform Test Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform-test:
+    name: Terraform Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        working-directory: root
+        run: terraform init -input=false
+
+      - name: Terraform Format Check
+        working-directory: root
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Validate
+        working-directory: root
+        run: terraform validate
+
+      - name: Terraform Plan
+        working-directory: root
+        run: terraform p
